@@ -1,54 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="pl">
 <head>
-    <title>SkinPrice Tracker</title>
+    <meta charset="UTF-8">
+    <title>SkinPrice Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        body { background-color: #121212; color: white; }
-        .card { background-color: #1e1e1e; border: none; color: white; margin-bottom: 20px; }
+        body { background-color: #121212; color: #e0e0e0; font-family: 'Segoe UI', sans-serif; }
+        .card { background-color: #1e1e1e; border: 1px solid #333; border-radius: 15px; }
+        .skin-item { border-bottom: 1px solid #333; padding: 10px 0; }
+        .price-tag { color: #00ff88; font-weight: bold; }
     </style>
 </head>
-<body class="container py-5">
-    <h1 class="mb-4">🚀 Inżynierski Dashboard Skinów</h1>
-
-    <div class="row">
-        <div class="col-md-8">
-            <div class="card p-4">
-                <canvas id="priceChart"></canvas>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card p-4">
-                <h3>Aktualne ceny</h3>
-                <ul class="list-group list-group-flush">
-                    {% for skin in skins %}
-                    <li class="list-group-item bg-transparent text-white d-flex justify-content-between">
-                        {{ skin.name }} <span>${{ skin.price }}</span>
-                    </li>
-                    {% endfor %}
-                </ul>
+<body>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card p-4 shadow-lg">
+                    <h1 class="text-center mb-4">🚀 Monitor Cen Skinów</h1>
+                    <p class="text-muted text-center">Status systemu: <span class="badge bg-success">Online</span></p>
+                    
+                    <div class="mt-4">
+                        {% for skin in skins %}
+                        <div class="skin-item d-flex justify-content-between align-items-center">
+                            <span>{{ skin.name }}</span>
+                            <span class="price-tag">${{ skin.price }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="text-center mt-5">
+                        <small class="text-muted">Projekt Inżynierski - System Analizy Rynku CS2</small>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-    <script>
-        const ctx = document.getElementById('priceChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: {{ names|tojson }},
-                datasets: [{
-                    label: 'Cena w USD',
-                    data: {{ prices|tojson }},
-                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                    borderColor: 'rgb(75, 192, 192)',
-                    borderWidth: 1
-                }]
-            },
-            options: { scales: { y: { beginAtZero: true, grid: { color: '#333' } } } }
-        });
-    </script>
 </body>
 </html>
