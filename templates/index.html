@@ -2,38 +2,92 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>SkinPrice Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steam Virtual Item Prices | Inżynierski Monitor</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { background-color: #121212; color: #e0e0e0; font-family: 'Segoe UI', sans-serif; }
-        .card { background-color: #1e1e1e; border: 1px solid #333; border-radius: 15px; }
-        .skin-item { border-bottom: 1px solid #333; padding: 10px 0; }
-        .price-tag { color: #00ff88; font-weight: bold; }
+        /* Ciemny, inżynierski motyw */
+        body { 
+            background-color: #0e1117; 
+            color: #c9d1d9; 
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif; 
+            font-weight: 300;
+        }
+        
+        /* Stylizacja głównego nagłówka - czysty, bez ikon */
+        h1 { 
+            color: #f0f6fc; 
+            font-weight: 700; 
+            letter-spacing: -1px;
+            text-transform: none; /* Czysty tekst bez zbędnych bajerów */
+        }
+        
+        /* Nowoczesne, oddzielne karty dla przedmiotów (to klucz do poprawy wyglądu!) */
+        .skin-card { 
+            background-color: #161b22; 
+            border: 1px solid #30363d; 
+            border-radius: 12px; 
+            transition: all 0.2s ease-in-out;
+            cursor: default;
+        }
+        
+        /* Lekki efekt po najechaniu myszką */
+        .skin-card:hover { 
+            border-color: #58a6ff; 
+            transform: translateY(-3px); 
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+
+        /* Stylizacja ceny - wyraźna i zielona */
+        .price-tag { 
+            color: #3fb950; 
+            font-weight: 700; 
+            font-size: 1.25rem;
+        }
+
+        /* Detale inżynierskie w stopce */
+        .card-footer {
+            background-color: transparent;
+            border-top: 1px solid #30363d;
+            padding: 0.75rem 1.25rem;
+        }
     </style>
 </head>
 <body>
     <div class="container py-5">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card p-4 shadow-lg">
-                    <h1 class="text-center mb-4">🚀 Monitor Cen Skinów</h1>
-                    <p class="text-muted text-center">Status systemu: <span class="badge bg-success">Online</span></p>
-                    
-                    <div class="mt-4">
-                        {% for skin in skins %}
-                        <div class="skin-item d-flex justify-content-between align-items-center">
-                            <span>{{ skin.name }}</span>
+        <header class="mb-5 border-bottom border-secondary pb-3 text-center">
+            <h1 class="display-5">Ceny przedmiotów wirtualnych na platformie Steam</h1>
+            <p class="text-muted fs-5">System Analizy Rynku CS2 - Edycja Inżynierska</p>
+            <div class="mt-3">
+                <span class="badge bg-success px-3 py-2 rounded-pill">Status: Online</span>
+                <span class="text-muted ms-3">Ostatnia aktualizacja: <small>teraz</small></span>
+            </div>
+        </header>
+        
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for skin in skins %}
+            <div class="col">
+                <div class="skin-card h-100 shadow-sm">
+                    <div class="card-body p-4">
+                        <h5 class="card-title text-white mb-1">{{ skin.name }}</h5>
+                        <p class="text-muted small mb-3">Typ: Broń / Skin</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-muted small">Aktualna cena (USD)</span>
                             <span class="price-tag">${{ skin.price }}</span>
                         </div>
-                        {% endfor %}
                     </div>
-                    
-                    <div class="text-center mt-5">
-                        <small class="text-muted">Projekt Inżynierski - System Analizy Rynku CS2</small>
+                    <div class="card-footer d-flex justify-content-between text-muted small">
+                        <span>Float: Symulowany</span>
+                        <a href="#" class="text-decoration-none text-info">Szczegóły →</a>
                     </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
+
+        <footer class="mt-5 pt-4 border-top border-secondary text-center text-muted">
+            <small>&copy; 2024 System Analizy Rynku. Projekt Inżynierski.</small>
+        </footer>
     </div>
 </body>
 </html>
